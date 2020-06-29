@@ -10,12 +10,19 @@ export class Content extends React.Component {
         super(props);
 
         this.state = {
-            timevalue: 0
+            timevalue: 0,
+            start: true,
+            stop: false
         }
     }
 
     onSetNewValue(value){
-        this.setState({timevalue: value})
+        console.log(value);
+        if(value == ''){
+            this.setState({timevalue: 0})
+        }else{
+            this.setState({timevalue: value})
+        }
     }
 
     render() {

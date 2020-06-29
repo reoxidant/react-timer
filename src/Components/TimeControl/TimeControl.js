@@ -8,7 +8,11 @@ export class TimeControl extends React.Component {
     }
 
     handleChange(e){
-        this.props.onSetNewValue(e.target.value);
+        if(e.target.value.substr(0,1) == 0){
+            this.props.onSetNewValue(e.target.value.substring(1));
+        }else{
+            this.props.onSetNewValue(e.target.value);
+        }
     }
 
     render() {
