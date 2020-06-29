@@ -12,42 +12,68 @@ export class Content extends React.Component {
         this.state = {
             timevalue: 0,
             canStart: false,
+            timerIsRun: false,
             start: true,
             stop: false,
-            days: 0,
             hours: 0,
-            minutes: 0
+            min: 0,
+            seconds: 0
         }
     }
 
     onSetNewValue(value) {
-        if (value == '') {
-            this.setState({timevalue: 0, canStart: false})
-        } else {
+        if (value == '' || value == 0) {
+            if (value == '') {
+                value = 0;
+            }
             this.setState({
                 timevalue: value,
-                canStart: true,
-                days: Math.floor(value / 60 / 24),
-                hours: Math.floor(value / 60),
-                minutes: Math.floor(value % 60)
+                canPressBtnStart: false,
+                hours: Math.floor(value),
+                min: Math.floor(value),
+                seconds: Math.floor(value)
+            })
+        } else {
+            console.log(value);
+            this.setState({
+                timevalue: value,
+                canPressBtnStart: true,
+                hours: Math.floor(value / 60 / 60),
+                min: Math.floor(value / 60 % 60),
+                seconds: Math.floor(value % 60)
             })
         }
     }
 
+    onStartTimer() {
+        this.setState({canPressBtnStart: !this.state.canPressBtnStart});
+    }
 
     render() {
+        const timerIsRun = this.state.timerIsRun;
         const timevalue = this.state.timevalue;
-        const canStart = this.state.canStart;
-        const days = (this.state.days.toString().length > 1) ? this.state.days : "0" + this.state.days;
+        const canPressBtnStart = this.state.canPressBtnStart;
         const hours = (this.state.hours.toString().length > 1) ? this.state.hours : "0" + this.state.hours;
-        const minutes = (this.state.minutes.toString().length > 1) ? this.state.minutes : "0" + this.state.minutes;
+        const min = (this.state.min.toString().length > 1) ? this.state.min : "0" + this.state.min;
+        const seconds = (this.state.seconds.toString().length > 1) ? this.state.seconds : "0" + this.state.seconds;
 
         return (
             <div className="content-circle">
                 <div className="circle">
-                    <TimeView days={days} hours={hours} minutes={minutes}/>
-                    <TimeControl timevalue={timevalue} onSetNewValue={this.onSetNewValue.bind(this)}/>
-                    <Actions canStart={canStart}/>
+                    <TimeView hours={hours} min={min} seconds={seconds}/>
+                    <TimeControl
+                        days={hours}
+                        min={min}
+                        seconds={seconds}
+                        timevalue={timevalue}
+                        onSetNewValue={this.onSetNewValue.bind(this)}
+                        timerIsRun={timerIsRun}
+                    />
+                    <Actions
+                        canPressBtnStart={canPressBtnStart}
+                        timerIsRun={timerIsRun}
+                        onStartTimer={this.onStartTimer.bind(this)}
+                    />
                 </div>
             </div>
         );

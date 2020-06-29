@@ -20,8 +20,18 @@ export class TimeControl extends React.Component {
     render() {
         return (
             <div className="time-control">
-                <input className="input-control" type="number" value={this.props.timevalue}
-                       onChange={this.handleChange.bind(this)}/>
+                {
+                    (!this.props.timerIsRun) ?
+                        <input
+                            className="input-control"
+                            type="number"
+                            value={this.props.timevalue}
+                            onChange={this.handleChange.bind(this)}
+                        /> :
+                        <div className="time-lose">
+                            <span>{this.props.hours}:{this.props.min}:{this.props.seconds}</span>
+                        </div>
+                }
             </div>
         );
     }
