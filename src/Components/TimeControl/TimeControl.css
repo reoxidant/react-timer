@@ -1,0 +1,16 @@
+.input-control {
+    border: none;
+    outline: none;
+    height: 60px;
+    font-size: 48px;
+    font-weight: bolder;
+    text-align: center;
+    width: 100%;
+    color: #039BE5;
+}
+
+.time-control {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
