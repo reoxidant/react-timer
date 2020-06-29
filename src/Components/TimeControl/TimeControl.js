@@ -7,10 +7,12 @@ export class TimeControl extends React.Component {
         super(props);
     }
 
-    handleChange(e){
-        if(e.target.value.substr(0,1) == 0){
+    handleChange(e) {
+        if (e.target.value.substr(0, 1) == 0) {
             this.props.onSetNewValue(e.target.value.substring(1));
-        }else{
+        } else if (e.target.value.length > 6) {
+            this.props.onSetNewValue(e.target.value.substr(0, 6));
+        } else {
             this.props.onSetNewValue(e.target.value);
         }
     }
@@ -18,7 +20,8 @@ export class TimeControl extends React.Component {
     render() {
         return (
             <div className="time-control">
-                <input className="input-control" type="number" value={this.props.timevalue} onChange={this.handleChange.bind(this)}/>
+                <input className="input-control" type="number" value={this.props.timevalue}
+                       onChange={this.handleChange.bind(this)}/>
             </div>
         );
     }

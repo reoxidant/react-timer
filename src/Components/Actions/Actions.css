@@ -25,6 +25,10 @@
 }
 
 
+.start-btn:disabled {
+    opacity: 0.6;
+}
+
 .start-btn {
     background: url(./start-btn-icon.svg) no-repeat 70px 12px;
     background-size: 40px;
