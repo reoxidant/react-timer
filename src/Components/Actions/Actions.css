@@ -1,0 +1,38 @@
+.circle-actions{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    bottom: 0;
+}
+
+.circle-actions > button{
+    width: 50%;
+    height: 80px;
+    border: none;
+    cursor: pointer;
+    outline-color: #546e7a;
+}
+
+.circle-actions > button:not(:last-child){
+    margin-right: 1px;
+}
+
+.reset-btn{
+    background: url(./reset-btn-icon.svg) no-repeat 20px 12px;
+    background-size: 40px;
+    background-color: #039be5;
+}
+
+
+.start-btn {
+    background: url(./start-btn-icon.svg) no-repeat 70px 12px;
+    background-size: 40px;
+    background-color: #4caf50;
+}
+
+.stop-btn{
+    background: url(./stop-btn-icon.svg) no-repeat 75px 18px;
+    background-size: 30px;
+    background-color: #282c34;
+}
