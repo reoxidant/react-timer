@@ -11,13 +11,13 @@ export class Actions extends React.Component {
     }
 
     render() {
-        const canPressBtnStart = this.props.canPressBtnStart;
-        const timerIsRun = this.props.timerIsRun;
+        const status = this.props.status;
+        const time = this.props.time;
 
         return (
             <div className="circle-actions">
-                <button disabled={(!canPressBtnStart) ? "disabled" : null}
-                        className={(!timerIsRun) ? "start-btn" : "stop-btn"}
+                <button disabled={(time == 0) ? "disabled" : null}
+                        className={(status == "stop") ? "start-btn" : "stop-btn"}
                         onClick={this.handlerClick.bind(this)}></button>
                 <button className="reset-btn"></button>
             </div>

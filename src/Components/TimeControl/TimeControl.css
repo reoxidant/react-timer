@@ -15,6 +15,16 @@
     justify-content: center;
 }
 
+.time-lose {
+    display: flex;
+    font-weight: 700;
+    justify-content: center;
+    align-items: center;
+    height: 140px;
+    font-size: 48px;
+    color: #039be5;
+}
+
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
     -webkit-appearance: none;

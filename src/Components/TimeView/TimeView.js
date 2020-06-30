@@ -8,9 +8,15 @@ export class TimeView extends React.Component {
     }
 
     render() {
+        const time = this.props.status;
+        const status = this.props.status;
         return (
             <div className="time-view">
-                <span>{this.props.hours}:{this.props.min}:{this.props.seconds}:00</span>
+                {(status == "stop") ?
+                    <span>
+                        00:00:00:00
+                    </span>
+                    : null}
             </div>
         );
     }

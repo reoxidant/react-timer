@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
 import Header from './../Header/Header';
-import {Content} from './../Content/Content';
+import {Timer} from './../Timer/Timer';
 
 function App() {
     return (
         <div className="App">
             <Header/>
-            <Content/>
+            <Timer/>
         </div>
     );
 }
