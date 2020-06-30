@@ -15,6 +15,7 @@ export class Timer extends React.Component {
             result: 0
         }
 
+        this.ms = this.state.time * 1000;
         this.timeout = null;
     }
 
@@ -43,24 +44,36 @@ export class Timer extends React.Component {
     }
 
     getTime(time) {
-        let hours = this.toStringTime((time / 60 / 60).toFixed(0));
-        let minutes = this.toStringTime((time / 60 % 60).toFixed(0));
-        let seconds = this.toStringTime((time % 60).toFixed(0));
-        let ms = this.toStringTime(((time * 1000) % 100).toFixed(0));
+        // let hours = this.toStringTime((time / 60 / 60).toFixed(0));
+        // let minutes = this.toStringTime((time / 60 % 60).toFixed(0));
+        // let seconds = this.toStringTime((time % 60).toFixed(0));
+        // let ms = this.toStringTime((time % 100).toFixed(0));
+
+
+        let hours = this.toStringTime((time / 360000).toFixed(0));
+        let minutes = this.toStringTime((time % 360000)/ 6000 ).toFixed(0);
+        let seconds = this.toStringTime(((time % 360000) % 6000) / 100).toFixed(0);
+        let ms = this.toStringTime(((time % 360000) % 6000) % 100).toFixed(0);
+
+        // return `${ms}`
 
         return `${hours}:${minutes}:${seconds}:${ms}`;
     }
 
-    componentWillMount() {
-        clearTimeout(this.timeout);
-    }
 
-    onTick() {
-
+    onTimeCounter() {
+        if(this.state.time <= 0){
+            clearInterval(this.timeout);
+            return;
+        }
+        this.setState({
+            time:this.state.time-1,
+            result: this.getTime(this.state.time)
+        });
     }
 
     onStartTimer() {
-        // setInterval(this.onTick.bind(this), 1000)
+        this.timeout = setInterval(this.onTimeCounter.bind(this), 10)
         this.setState({status: !this.state.status});
     }
 
@@ -77,6 +90,7 @@ export class Timer extends React.Component {
                         status={status}
                     />
                     <TimeControl
+                        result={result}
                         onSetNewValue={this.onSetNewValue.bind(this)}
                         status={status}
                         time={time}

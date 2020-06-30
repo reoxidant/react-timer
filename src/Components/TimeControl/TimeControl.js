@@ -20,6 +20,7 @@ export class TimeControl extends React.Component {
     render() {
         const status = this.props.status;
         const time = this.props.time;
+        const result = this.props.result;
 
         return (
             <div className="time-control">
@@ -33,7 +34,7 @@ export class TimeControl extends React.Component {
                         /> :
                         <div className="time-lose">
                             <span>
-                                {time}:{time}
+                                {result}
                             </span>
                         </div>
                 }
