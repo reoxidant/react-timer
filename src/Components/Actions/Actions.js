@@ -17,7 +17,7 @@ export class Actions extends React.Component {
         return (
             <div className="circle-actions">
                 <button disabled={(time == 0) ? "disabled" : null}
-                        className={(status == "stop") ? "start-btn" : "stop-btn"}
+                        className={(status == false) ? "start-btn" : "stop-btn"}
                         onClick={this.handlerClick.bind(this)}></button>
                 <button className="reset-btn"></button>
             </div>

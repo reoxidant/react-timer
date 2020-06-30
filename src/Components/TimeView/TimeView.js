@@ -8,14 +8,13 @@ export class TimeView extends React.Component {
     }
 
     render() {
-        const time = this.props.status;
         const status = this.props.status;
+        const result = this.props.result;
+
         return (
             <div className="time-view">
-                {(status == "stop") ?
-                    <span>
-                        00:00:00:00
-                    </span>
+                {(!status) ?
+                    <span>{(!result) ? "00:00:00:00" : result}</span>
                     : null}
             </div>
         );

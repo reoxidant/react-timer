@@ -24,7 +24,7 @@ export class TimeControl extends React.Component {
         return (
             <div className="time-control">
                 {
-                    (status == 'stop') ?
+                    (!status) ?
                         <input
                             className="input-control"
                             type="number"
@@ -32,7 +32,9 @@ export class TimeControl extends React.Component {
                             onChange={this.handleChange.bind(this)}
                         /> :
                         <div className="time-lose">
-                            <span>00:00:00:00</span>
+                            <span>
+                                {time}:{time}
+                            </span>
                         </div>
                 }
             </div>
