@@ -52,10 +52,9 @@ export class Timer extends React.Component {
 
     animateTime(startTime, responseTime, timeElem, timer) {
         startTime.setTime(responseTime - Date.now());
-        console.log(`${startTime.getUTCHours()}:${startTime.getUTCMinutes()}:${startTime.getUTCSeconds()}:${startTime.getUTCMilliseconds()}`);
-        timeElem.innerHTML = `${startTime.getUTCHours()}:${startTime.getUTCMinutes()}:${startTime.getUTCSeconds()}:${startTime.getUTCMilliseconds()}`;
+        timeElem.innerHTML = `${startTime.getUTCHours()}:${startTime.getUTCMinutes()}:${startTime.getUTCSeconds()}:${startTime.getUTCMilliseconds().toString().slice(0,2)}`;
 
-        if (startTime.getUTCHours() > 0 || startTime.getUTCMinutes() > 0 || startTime.getUTCSeconds() > 0 || startTime.getUTCMilliseconds() > 100) {
+        if (startTime.getUTCHours() > 0 || startTime.getUTCMinutes() > 0 || startTime.getUTCSeconds() > 0 || startTime.getUTCMilliseconds() > 20) {
             cancelAnimationFrame(timer);
             timer = requestAnimationFrame(() => this.animateTime(startTime, responseTime, timeElem, timer));
         } else {
