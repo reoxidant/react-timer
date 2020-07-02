@@ -3,4 +3,6 @@
     font-size: 18px;
     text-align: center;
     margin-top: 50px;
+    position: absolute;
+    width: 100%;
 }
