@@ -24,20 +24,15 @@ export class TimeControl extends React.Component {
 
         return (
             <div className="time-control">
-                {
-                    (!status) ?
-                        <input
-                            className="input-control"
-                            type="number"
-                            value={time}
-                            onChange={this.handleChange.bind(this)}
-                        /> :
-                        <div className="time-lose">
-                            <span>
-                                {result}
-                            </span>
-                        </div>
-                }
+                <input
+                    className={(status)?"input-control hidden":"input-control show"}
+                    type="number"
+                    value={time}
+                    onChange={this.handleChange.bind(this)}
+                />
+                <div id="time-lose" className={(!status)?"hidden":"show"}>
+                    {result}
+                </div>
             </div>
         );
     }

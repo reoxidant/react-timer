@@ -7,20 +7,21 @@
     text-align: center;
     width: 100%;
     color: #039BE5;
+    margin-top: 20px;
 }
 
 .time-control {
-    margin-top: 20px;
+    height: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
-.time-lose {
-    display: flex;
+#time-lose {
+    display: block;
     font-weight: 700;
     justify-content: center;
     align-items: center;
-    height: 140px;
     font-size: 48px;
     color: #039be5;
 }

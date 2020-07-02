@@ -15,8 +15,6 @@ export class Timer extends React.Component {
             result: 0
         }
 
-        this.ms = this.state.time * 1000;
-        this.timeout = null;
     }
 
     onSetNewValue(value) {
@@ -44,37 +42,37 @@ export class Timer extends React.Component {
     }
 
     getTime(time) {
-        // let hours = this.toStringTime((time / 60 / 60).toFixed(0));
-        // let minutes = this.toStringTime((time / 60 % 60).toFixed(0));
-        // let seconds = this.toStringTime((time % 60).toFixed(0));
-        // let ms = this.toStringTime((time % 100).toFixed(0));
-
-
-        let hours = this.toStringTime((time / 360000).toFixed(0));
-        let minutes = this.toStringTime((time % 360000)/ 6000 ).toFixed(0);
-        let seconds = this.toStringTime(((time % 360000) % 6000) / 100).toFixed(0);
-        let ms = this.toStringTime(((time % 360000) % 6000) % 100).toFixed(0);
-
-        // return `${ms}`
+        let hours = this.toStringTime((time / 60 / 60).toFixed(0));
+        let minutes = this.toStringTime((time / 60 % 60).toFixed(0));
+        let seconds = this.toStringTime((time % 60).toFixed(0));
+        let ms = this.toStringTime(((time * 1000) % 100).toFixed(0));
 
         return `${hours}:${minutes}:${seconds}:${ms}`;
     }
 
+    timeLost = () =>{
+        let startTime = new Date();
+        let responseTime = new Date(Date.now() + 1000 * this.state.time);
+        let timeElem = document.getElementById('time-lost');
 
-    onTimeCounter() {
-        if(this.state.time <= 0){
-            clearInterval(this.timeout);
-            return;
+        console.log(timeElem);
+
+        startTime.setTime(responseTime-Date.now());
+
+        timeElem.innerHTML = "<span>`${startTime.getUTCHours()}:${startTime.getUTCMinutes()}:${startTime.getUTCSeconds()}:${startTime.getUTCMilliseconds()}`</span>";
+
+        if(startTime.getUTCHours()>0 || startTime.getUTCMinutes()>0|| startTime.getUTCSeconds()>0 || startTime.getUTCMilliseconds()>0){
+            requestAnimationFrame(this.timeLost);
+        }else{
+            alert("Готово")
         }
-        this.setState({
-            time:this.state.time-1,
-            result: this.getTime(this.state.time)
-        });
     }
 
     onStartTimer() {
-        this.timeout = setInterval(this.onTimeCounter.bind(this), 10)
-        this.setState({status: !this.state.status});
+        this.setState({
+            status: !this.state.status,
+            // result: requestAnimationFrame(this.timeLost)
+        });
     }
 
     render() {
