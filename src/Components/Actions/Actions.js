@@ -7,7 +7,11 @@ export class Actions extends React.Component {
     }
 
     handlerClick() {
-        this.props.onStartTimer();
+        if (this.props.status == false) {
+            this.props.onStartTimer();
+        } else {
+            this.props.onStopTimer();
+        }
     }
 
     render() {

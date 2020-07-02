@@ -15,6 +15,8 @@ export class Timer extends React.Component {
             result: 0
         }
 
+        this.timeout = null;
+
     }
 
     onSetNewValue(value) {
@@ -52,7 +54,16 @@ export class Timer extends React.Component {
 
     animateTime(startTime, responseTime, timeElem, timer) {
         startTime.setTime(responseTime - Date.now());
-        timeElem.innerHTML = `${startTime.getUTCHours()}:${startTime.getUTCMinutes()}:${startTime.getUTCSeconds()}:${startTime.getUTCMilliseconds().toString().slice(0,2)}`;
+
+        if (this.state.status) {
+            timeElem.innerHTML = `${startTime.getUTCHours()}:${startTime.getUTCMinutes()}:${startTime.getUTCSeconds()}:${startTime.getUTCMilliseconds().toString().slice(0, 2)}`;
+            this.setState(
+                {
+                    time: Math.round(startTime.getTime() / 1000)
+                }
+            )
+            cancelAnimationFrame(timer);
+        }
 
         if (startTime.getUTCHours() > 0 || startTime.getUTCMinutes() > 0 || startTime.getUTCSeconds() > 0 || startTime.getUTCMilliseconds() > 20) {
             cancelAnimationFrame(timer);
@@ -64,7 +75,7 @@ export class Timer extends React.Component {
 
     onStartTimer() {
         let startTime = new Date(),
-            responseTime = new Date(Date.now() + (1000 * 3)),
+            responseTime = new Date(Date.now() + (1000 * this.state.time)),
             timeElem = document.getElementById('time-lose'),
             timer = null;
 
@@ -72,6 +83,19 @@ export class Timer extends React.Component {
             status: !this.state.status,
             result: this.animateTime(startTime, responseTime, timeElem, timer)
         });
+    }
+
+    onStopTimer() {
+        const timeElem = document.getElementById('time-lose');
+
+        this.setState({
+            status: !this.state.status,
+            result: timeElem.textContent
+        });
+    }
+
+    onResetTimer() {
+
     }
 
     render() {
@@ -94,6 +118,7 @@ export class Timer extends React.Component {
                     />
                     <Actions
                         onStartTimer={this.onStartTimer.bind(this)}
+                        onStopTimer={this.onStopTimer.bind(this)}
                         status={status}
                         time={time}
                     />
