@@ -50,28 +50,28 @@ export class Timer extends React.Component {
         return `${hours}:${minutes}:${seconds}:${ms}`;
     }
 
-    timeLost = () =>{
-        let startTime = new Date();
-        let responseTime = new Date(Date.now() + 1000 * this.state.time);
-        let timeElem = document.getElementById('time-lost');
+    animateTime(startTime, responseTime, timeElem, timer) {
+        startTime.setTime(responseTime - Date.now());
+        console.log(`${startTime.getUTCHours()}:${startTime.getUTCMinutes()}:${startTime.getUTCSeconds()}:${startTime.getUTCMilliseconds()}`);
+        timeElem.innerHTML = `${startTime.getUTCHours()}:${startTime.getUTCMinutes()}:${startTime.getUTCSeconds()}:${startTime.getUTCMilliseconds()}`;
 
-        console.log(timeElem);
-
-        startTime.setTime(responseTime-Date.now());
-
-        timeElem.innerHTML = "<span>`${startTime.getUTCHours()}:${startTime.getUTCMinutes()}:${startTime.getUTCSeconds()}:${startTime.getUTCMilliseconds()}`</span>";
-
-        if(startTime.getUTCHours()>0 || startTime.getUTCMinutes()>0|| startTime.getUTCSeconds()>0 || startTime.getUTCMilliseconds()>0){
-            requestAnimationFrame(this.timeLost);
-        }else{
-            alert("Готово")
+        if (startTime.getUTCHours() > 0 || startTime.getUTCMinutes() > 0 || startTime.getUTCSeconds() > 0 || startTime.getUTCMilliseconds() > 100) {
+            cancelAnimationFrame(timer);
+            timer = requestAnimationFrame(() => this.animateTime(startTime, responseTime, timeElem, timer));
+        } else {
+            timeElem.innerHTML = 0;
         }
     }
 
     onStartTimer() {
+        let startTime = new Date(),
+            responseTime = new Date(Date.now() + (1000 * 3)),
+            timeElem = document.getElementById('time-lose'),
+            timer = null;
+
         this.setState({
             status: !this.state.status,
-            // result: requestAnimationFrame(this.timeLost)
+            result: this.animateTime(startTime, responseTime, timeElem, timer)
         });
     }
 

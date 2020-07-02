@@ -25,12 +25,12 @@ export class TimeControl extends React.Component {
         return (
             <div className="time-control">
                 <input
-                    className={(status)?"input-control hidden":"input-control show"}
+                    className={(status) ? "input-control hidden" : "input-control show"}
                     type="number"
                     value={time}
                     onChange={this.handleChange.bind(this)}
                 />
-                <div id="time-lose" className={(!status)?"hidden":"show"}>
+                <div id="time-lose" className={(!status) ? "hidden" : "show"}>
                     {result}
                 </div>
             </div>

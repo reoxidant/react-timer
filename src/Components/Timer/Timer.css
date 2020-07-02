@@ -18,10 +18,10 @@
     overflow: hidden;
 }
 
-.hidden{
+.hidden {
     display: none !important;
 }
 
-.show{
+.show {
     display: block !important;
 }
