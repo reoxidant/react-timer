@@ -14,9 +14,6 @@ export class Timer extends React.Component {
             time: 0,
             result: 0
         }
-
-        this.timeout = null;
-
     }
 
     onSetNewValue(value) {
@@ -56,6 +53,9 @@ export class Timer extends React.Component {
         startTime.setTime(responseTime - Date.now());
 
         if (this.state.status) {
+            if (startTime.getUTCSeconds() <= 10) {
+                timeElem.style.color = "#ef5350";
+            }
             timeElem.innerHTML = `${startTime.getUTCHours()}:${startTime.getUTCMinutes()}:${startTime.getUTCSeconds()}:${startTime.getUTCMilliseconds().toString().slice(0, 2)}`;
             this.setState(
                 {
@@ -69,7 +69,12 @@ export class Timer extends React.Component {
             cancelAnimationFrame(timer);
             timer = requestAnimationFrame(() => this.animateTime(startTime, responseTime, timeElem, timer));
         } else {
-            timeElem.innerHTML = 0;
+            timeElem.innerHTML = "00:00:00:00";
+            this.setState(
+                {
+                    status: !this.state.status
+                }
+            )
         }
     }
 
@@ -95,7 +100,11 @@ export class Timer extends React.Component {
     }
 
     onResetTimer() {
-
+        this.setState({
+            status: false,
+            time: 0,
+            result: 0
+        });
     }
 
     render() {
@@ -119,6 +128,7 @@ export class Timer extends React.Component {
                     <Actions
                         onStartTimer={this.onStartTimer.bind(this)}
                         onStopTimer={this.onStopTimer.bind(this)}
+                        onResetTimer={this.onResetTimer.bind(this)}
                         status={status}
                         time={time}
                     />

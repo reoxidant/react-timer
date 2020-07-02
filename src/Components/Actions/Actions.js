@@ -14,6 +14,10 @@ export class Actions extends React.Component {
         }
     }
 
+    resetClick() {
+        this.props.onResetTimer();
+    }
+
     render() {
         const status = this.props.status;
         const time = this.props.time;
@@ -23,7 +27,7 @@ export class Actions extends React.Component {
                 <button disabled={(time == 0) ? "disabled" : null}
                         className={(status == false) ? "start-btn" : "stop-btn"}
                         onClick={this.handlerClick.bind(this)}></button>
-                <button className="reset-btn"></button>
+                <button className="reset-btn" onClick={this.resetClick.bind(this)}></button>
             </div>
         )
     }
